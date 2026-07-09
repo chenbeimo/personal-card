@@ -1,5 +1,7 @@
 import { Github, Mail, MessageCircle, Video, FileText } from 'lucide-react'
 
+const base = import.meta.env.BASE_URL
+
 export interface SocialLink {
   name: string
   icon: typeof Github
@@ -27,19 +29,19 @@ export const socialLinks: SocialLink[] = [
     icon: MessageCircle,
     url: '#',
     color: 'hover:text-green-300',
-    previewImage: '/微信.jpg',
+    previewImage: `${base}微信.jpg`,
   },
   {
     name: '抖音',
     icon: Video,
     url: '#',
     color: 'hover:text-pink-300',
-    previewImage: '/抖音.jpg',
+    previewImage: `${base}抖音.jpg`,
   },
   {
     name: '简历',
     icon: FileText,
-    url: '/最初的简历.pdf',
+    url: `${base}最初的简历.pdf`,
     color: 'hover:text-amber-300',
   },
 ]

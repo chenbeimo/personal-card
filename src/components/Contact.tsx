@@ -130,7 +130,7 @@ export default function Contact() {
             </div>
 
             <a
-              href="/最初的简历.pdf"
+              href={`${import.meta.env.BASE_URL}最初的简历.pdf`}
               target="_blank"
               className="inline-flex items-center gap-2 bg-white text-black rounded-full px-6 py-3 text-sm font-medium hover:bg-white/90 transition-colors"
               style={{ fontFamily: 'system-ui, sans-serif' }}

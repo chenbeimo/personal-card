@@ -38,7 +38,7 @@ export default function About() {
             <div className="liquid-glass rounded-2xl p-3 max-w-sm mx-auto md:mx-0">
               <div className="rounded-xl overflow-hidden aspect-[4/5] bg-gradient-to-br from-white/10 to-white/5">
                 <img
-                  src="/奶龙.jpg"
+                  src={`${import.meta.env.BASE_URL}奶龙.jpg`}
                   alt="陈浩明"
                   className="w-full h-full object-cover"
                   loading="lazy"
