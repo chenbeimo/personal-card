@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================
+   1. CSS Custom Properties — 全站设计令牌
+   ============================================================= */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-blur: 12px;
+  --glass-highlight-start: rgba(255, 255, 255, 0.2);
+  --glass-highlight-mid: rgba(255, 255, 255, 0.05);
+  --glass-highlight-end: rgba(255, 255, 255, 0.1);
+
+  --color-dark-ink: #182C41;
+  --transition-base: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-base: 300ms;
+  --duration-slow: 700ms;
+}
+
+/* =============================================================
+   2. Base — 字体、重置、滚动
+   ============================================================= */
+
+/* 字体回退：Instrument Serif 未加载时用 Georgia 兜底，避免 FOIT */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Instrument Serif'), local('Georgia');
+}
+
+html {
+  font-family: 'Instrument Serif', Georgia, serif;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* 减弱动效：尊重用户系统偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .train-bob {
+    animation: none !important;
+  }
+  .video-layer {
+    transition: none !important;
+  }
+}
+
+/* 正文段落、按钮、标签统一使用系统无衬线字体 */
+.font-body,
+button,
+input,
+textarea,
+select,
+label {
+  font-family: system-ui, sans-serif;
+}
+
+/* iOS 防止输入框聚焦时自动缩放（font-size < 16px 触发） */
+@media screen and (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* 选中文本颜色 */
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* 平滑滚动容器 */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* =============================================================
+   3. Liquid Glass — 玻璃拟态核心
+   ============================================================= */
+@layer components {
+  .liquid-glass {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    transition: background var(--duration-base) var(--transition-base),
+                border-color var(--duration-base) var(--transition-base);
+  }
+
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--glass-highlight-start) 0%,
+      var(--glass-highlight-mid) 50%,
+      var(--glass-highlight-end) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* 悬停时亮度提升 */
+  .liquid-glass-hover:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* 深色模式变体 */
+  .liquid-glass-dark {
+    background: rgba(24, 44, 65, 0.15);
+    border-color: rgba(24, 44, 65, 0.2);
+  }
+}
+
+/* =============================================================
+   4. Animations — 全站通用动画
+   ============================================================= */
+
+/* 4.1 PNG 浮动叠加 (train-bob) */
+@keyframes trainBob {
+  0%, 100% {
+    transform: scale(1.03) translateY(0);
+  }
+  50% {
+    transform: scale(1.03) translateY(-6px);
+  }
+}
+
+.train-bob {
+  animation: trainBob 3s ease-in-out infinite;
+}
+
+/* 4.2 淡入上移 (滚动入场) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s var(--transition-base) forwards;
+}
+
+/* 4.3 淡入 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s var(--transition-base) forwards;
+}
+
+/* 4.4 菜单阶梯入场 */
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-link-enter {
+  opacity: 0;
+  animation: menuSlideIn 0.5s var(--transition-base) forwards;
+}
+
+/* 4.5 进度条填充 */
+@keyframes progressFill {
+  from { width: 0; }
+}
+
+.progress-bar-animated {
+  animation: progressFill 1s var(--transition-base) forwards;
+}
+
+/* 4.6 轻微脉冲 (用于徽章、提示) */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* 4.7 缓慢旋转 (用于装饰元素) */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* 4.8 缩放弹入 */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s var(--transition-base) forwards;
+}
+
+/* =============================================================
+   5. Video Layer — 视频背景
+   ============================================================= */
+.video-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1000ms ease-in-out;
+  will-change: opacity;
+}
+
+/* =============================================================
+   6. Navbar — 导航栏状态
+   ============================================================= */
+.navbar-scrolled {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* =============================================================
+   7. Hero Content — 首屏深色模式过渡
+   ============================================================= */
+.hero-content {
+  transition: color var(--duration-slow) ease-in-out;
+}
+
+/* =============================================================
+   8. Utility Classes — 工具类
+   ============================================================= */
+
+/* 文本渐变 */
+.text-gradient {
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 截断文本 */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 隐藏滚动条但保留功能 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 焦点样式 */
+.focus-ring:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+/* 禁止选中 */
+.select-none {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* =============================================================
+   9. Responsive Helpers — 响应式辅助
+   ============================================================= */
+
+/* 移动端安全区域 */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
