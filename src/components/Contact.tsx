@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Send, Download, CheckCircle, X } from 'lucide-react'
-import { socialLinks } from '../data/socials'
+import { Send, Download, CheckCircle, X, ChevronDown } from 'lucide-react'
+import { socialLinks, resumes } from '../data/socials'
 
 export default function Contact() {
   const [visible, setVisible] = useState(false)
@@ -8,6 +8,8 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
+  const [resumeOpen, setResumeOpen] = useState(false)
+  const resumeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,6 +33,18 @@ export default function Contact() {
     }
   }, [previewImage, closePreview])
 
+  /* 点击外部关闭简历下拉 */
+  useEffect(() => {
+    if (!resumeOpen) return
+    const onClick = (e: MouseEvent) => {
+      if (resumeRef.current && !resumeRef.current.contains(e.target as Node)) {
+        setResumeOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClick)
+    return () => document.removeEventListener('mousedown', onClick)
+  }, [resumeOpen])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const { name, email, message } = formData
@@ -43,19 +57,11 @@ export default function Contact() {
   }
 
   const handleSocialClick = (e: React.MouseEvent, social: typeof socialLinks[0]) => {
-    // 有预览图的（微信/抖音）→ 弹出图片
     if (social.previewImage) {
       e.preventDefault()
       setPreviewImage(social.previewImage)
       return
     }
-    // 简历 PDF → 浏览器直接打开
-    if (social.url.endsWith('.pdf')) {
-      e.preventDefault()
-      window.open(social.url, '_blank')
-      return
-    }
-    // 其他（GitHub/邮箱）→ 正常跳转
   }
 
   return (
@@ -129,15 +135,43 @@ export default function Contact() {
               })}
             </div>
 
-            <a
-              href={`${import.meta.env.BASE_URL}最初的简历.pdf`}
-              target="_blank"
-              className="inline-flex items-center gap-2 bg-white text-black rounded-full px-6 py-3 text-sm font-medium hover:bg-white/90 transition-colors"
-              style={{ fontFamily: 'system-ui, sans-serif' }}
-            >
-              <Download size={16} />
-              下载简历
-            </a>
+            {/* ── 下载简历（下拉选择） ── */}
+            <div ref={resumeRef} className="relative inline-block">
+              <button
+                onClick={() => setResumeOpen((v) => !v)}
+                className="inline-flex items-center gap-2 bg-white text-black rounded-full px-6 py-3 text-sm font-medium hover:bg-white/90 transition-colors cursor-pointer"
+                style={{ fontFamily: 'system-ui, sans-serif' }}
+              >
+                <Download size={16} />
+                下载简历
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${resumeOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {/* 下拉菜单 */}
+              <div
+                className={`absolute left-0 mt-2 liquid-glass rounded-xl overflow-hidden transition-all duration-200 origin-top ${
+                  resumeOpen
+                    ? 'opacity-100 scale-y-100'
+                    : 'opacity-0 scale-y-95 pointer-events-none'
+                }`}
+              >
+                {resumes.map((r) => (
+                  <a
+                    key={r.label}
+                    href={r.file}
+                    target="_blank"
+                    onClick={() => setResumeOpen(false)}
+                    className="block px-5 py-2.5 text-white/80 text-sm hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap"
+                    style={{ fontFamily: 'system-ui, sans-serif' }}
+                  >
+                    {r.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* ── 右：留言表单 ── */}

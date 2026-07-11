@@ -1,4 +1,4 @@
-import { Github, Mail, MessageCircle, Video, FileText } from 'lucide-react'
+import { Github, Mail, MessageCircle, Video } from 'lucide-react'
 
 const base = import.meta.env.BASE_URL
 
@@ -38,10 +38,9 @@ export const socialLinks: SocialLink[] = [
     color: 'hover:text-pink-300',
     previewImage: `${base}抖音.jpg`,
   },
-  {
-    name: '简历',
-    icon: FileText,
-    url: `${base}最初的简历.pdf`,
-    color: 'hover:text-amber-300',
-  },
+]
+
+export const resumes = [
+  { label: '基础简历', file: `${base}基础简历.pdf` },
+  { label: '内容运营', file: `${base}内容运营.pdf` },
 ]
