@@ -106,9 +106,9 @@ export default function Hero() {
             className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.1] max-w-4xl mb-6 transition-colors duration-700"
             style={{ fontFamily: "'Instrument Serif', serif", color: c }}
           >
-            用代码构建体验
+            技术为底 复合成长
             <br />
-            用设计传递价值
+            多岗适配 落地为王
           </h1>
 
           {/* 副标题 */}
