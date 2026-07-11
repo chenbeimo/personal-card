@@ -116,8 +116,8 @@ export default function Hero() {
             className="max-w-xl leading-relaxed mb-10 text-sm sm:text-base transition-colors duration-700"
             style={{ fontFamily: 'system-ui, sans-serif', color: cDim }}
           >
-            大家好，我是陈浩明，云计算专业大三在读。靠云计算底子做 AI 工程化落地，
-            同时在补产品思维拆解用户需求，想走技术向产品的复合路径。
+            我是陈浩明，云计算专业大三在读。具备运维实操能力、产品需求分析思维与内容策划运营经验，
+            以技术底色支撑与运营落地，寻求实习机会。
           </p>
 
           {/* CTA 按钮 */}

@@ -37,43 +37,18 @@ export default function Skills() {
             className="text-3xl sm:text-4xl md:text-5xl text-white mb-4"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
-            技术能力
+            能力矩阵
           </h2>
           <p
             className="text-white/60 text-sm sm:text-base max-w-lg mx-auto"
             style={{ fontFamily: 'system-ui, sans-serif' }}
           >
-            持续学习，不断精进，以下是我在各领域的技术掌握情况
+            三个方向的能力储备，对应云计算运维、AI 工具应用与内容运营岗位
           </p>
         </div>
 
-        {/* ── 技能图标网格 ── */}
-        <div
-          className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-14 transition-all duration-700 delay-100 ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          {skills.map((skill, i) => (
-            <div
-              key={skill.name}
-              className="liquid-glass rounded-xl p-3 flex flex-col items-center gap-2 hover:bg-white/10 transition-all duration-300 group cursor-default"
-              style={{ transitionDelay: visible ? `${i * 30}ms` : '0ms' }}
-            >
-              <span className="text-2xl group-hover:scale-110 transition-transform duration-200">
-                {skill.icon}
-              </span>
-              <span
-                className="text-white/80 text-xs text-center"
-                style={{ fontFamily: 'system-ui, sans-serif' }}
-              >
-                {skill.name}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* ── 分类进度条 ── */}
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* ── 三列进度条卡片 ── */}
+        <div className="grid md:grid-cols-3 gap-6">
           {skillCategories.map((category, ci) => {
             const categorySkills = skills.filter((s) => s.category === category)
             return (
@@ -82,7 +57,7 @@ export default function Skills() {
                 className={`liquid-glass rounded-2xl p-6 transition-all duration-700 ${
                   visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
-                style={{ transitionDelay: visible ? `${300 + ci * 100}ms` : '0ms' }}
+                style={{ transitionDelay: visible ? `${200 + ci * 120}ms` : '0ms' }}
               >
                 <h3
                   className="text-white text-lg mb-5"
@@ -114,7 +89,7 @@ export default function Skills() {
                           }`}
                           style={{
                             width: visible ? `${skill.level}%` : '0%',
-                            animationDelay: visible ? `${500 + ci * 100}ms` : '0ms',
+                            animationDelay: visible ? `${400 + ci * 120}ms` : '0ms',
                           }}
                         />
                       </div>

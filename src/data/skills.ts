@@ -6,33 +6,37 @@ export interface Skill {
 }
 
 export const skills: Skill[] = [
-  // 前端开发
-  { name: 'React', icon: '⚛️', category: '前端开发', level: 35 },
-  { name: 'Vue 3', icon: '💚', category: '前端开发', level: 50 },
-  { name: 'TypeScript', icon: '📘', category: '前端开发', level: 20 },
-  { name: 'Tailwind CSS', icon: '🎨', category: '前端开发', level: 50 },
-  { name: 'HTML/CSS', icon: '🌐', category: '前端开发', level: 80 },
-  { name: '小程序', icon: '📱', category: '前端开发', level: 20 },
+  // 云计算运维技能
+  { name: 'Linux 命令', icon: '🐧', category: '云计算运维', level: 60 },
+  { name: 'Shell 脚本', icon: '📜', category: '云计算运维', level: 50 },
+  { name: 'Docker', icon: '🐳', category: '云计算运维', level: 60 },
+  { name: 'K8s 基础', icon: '☸️', category: '云计算运维', level: 30 },
+  { name: '路由交换', icon: '🔀', category: '云计算运维', level: 50 },
+  { name: 'TCP/IP', icon: '🌐', category: '云计算运维', level: 55 },
+  { name: '阿里云/华为云', icon: '☁️', category: '云计算运维', level: 45 },
+  { name: 'Git', icon: '📦', category: '云计算运维', level: 90 },
+  { name: 'Nginx', icon: '🌍', category: '云计算运维', level: 50 },
+  { name: '监控告警', icon: '📡', category: '云计算运维', level: 40 },
 
-  // 后端与云原生
-  { name: 'Node.js', icon: '🟢', category: '后端与云原生', level: 20 },
-  { name: 'NestJS', icon: '🔴', category: '后端与云原生', level: 10 },
-  { name: 'Python', icon: '🐍', category: '后端与云原生', level: 70 },
-  { name: 'Docker', icon: '🐳', category: '后端与云原生', level: 60 },
-  { name: 'Kubernetes', icon: '☸️', category: '后端与云原生', level: 30 },
-  { name: 'Linux', icon: '🐧', category: '后端与云原生', level: 60 },
+  // AI 工具与能力
+  { name: 'Claude Code', icon: '🤖', category: 'AI 工具与能力', level: 85 },
+  { name: 'Codex', icon: '🧠', category: 'AI 工具与能力', level: 70 },
+  { name: 'Mimo Code', icon: '💬', category: 'AI 工具与能力', level: 75 },
+  { name: 'Python', icon: '🐍', category: 'AI 工具与能力', level: 70 },
+  { name: 'C 语言', icon: '⚙️', category: 'AI 工具与能力', level: 55 },
+  { name: 'C++', icon: '🔧', category: 'AI 工具与能力', level: 45 },
+  { name: 'Excel', icon: '📊', category: 'AI 工具与能力', level: 90 },
+  { name: 'SQL', icon: '🗄️', category: 'AI 工具与能力', level: 60 },
 
-  // AI 与数据
-  { name: 'OpenCV', icon: '👁️', category: 'AI 与数据', level: 20 },
-  { name: 'MediaPipe', icon: '🖐️', category: 'AI 与数据', level: 10 },
-  { name: 'Whisper', icon: '🎤', category: 'AI 与数据', level: 20 },
-  { name: 'FFmpeg', icon: '🎬', category: 'AI 与数据', level: 60 },
-
-  // 工具与协作
-  { name: 'Git', icon: '📦', category: '工具与协作', level: 90 },
-  { name: 'Vite', icon: '⚡', category: '工具与协作', level: 60 },
-  { name: 'Figma', icon: '🎯', category: '工具与协作', level: 50 },
-  { name: 'AI 工具', icon: '🤖', category: '工具与协作', level: 85 },
+  // 运营能力
+  { name: '文案撰写', icon: '✍️', category: '运营能力', level: 75 },
+  { name: '脚本策划', icon: '🎬', category: '运营能力', level: 70 },
+  { name: '排版设计', icon: '🎨', category: '运营能力', level: 65 },
+  { name: '抖音运营', icon: '📱', category: '运营能力', level: 60 },
+  { name: '数据处理', icon: '📈', category: '运营能力', level: 70 },
+  { name: '指标复盘', icon: '🔍', category: '运营能力', level: 60 },
+  { name: '活动策划', icon: '🎯', category: '运营能力', level: 65 },
+  { name: '跨部门沟通', icon: '🤝', category: '运营能力', level: 70 },
 ]
 
-export const skillCategories = ['前端开发', '后端与云原生', 'AI 与数据', '工具与协作']
+export const skillCategories = ['云计算运维', 'AI 工具与能力', '运营能力']
